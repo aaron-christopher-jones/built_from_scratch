@@ -6,12 +6,9 @@ class LinearRegression:
     Solver: gradient descent.
     """
 
-    def __init__(self, y, X, learning_rate, tol_err):
+    def __init__(self, learning_rate, tol_err):
         """
         """
-        self.y = y.reshape(len(y), 1)
-        self.X = X
-        self.n, self.m = X.shape
         self.learning_rate = learning_rate
         self.tol_err = tol_err
 
@@ -26,7 +23,7 @@ class LinearRegression:
         
         betas : array
         """
-        Z = self.y - np.dot(self.X, betas)
+        Z = self.ytrain - np.dot(self.Xtrain, betas)
         return (1 / self.n) * np.dot(Z.T, Z)
 
     def _func_gradient(self, betas):
@@ -41,10 +38,10 @@ class LinearRegression:
 
         betas : array
         """
-        Z = self.y - np.dot(self.X, betas)
-        return -(2 / self.n) * np.dot(self.X.T, Z)
+        Z = self.ytrain - np.dot(self.Xtrain, betas)
+        return -(2 / self.n) * np.dot(self.Xtrain.T, Z)
 
-    def fit(self):
+    def fit(self, Xtrain, ytrain):
         """
         Fit the model.
 
@@ -53,6 +50,10 @@ class LinearRegression:
         self : class object
             The class object containing all the key components
         """
+        self.Xtrain = Xtrain
+        self.ytrain = ytrain.reshape(len(ytrain), 1)
+        self.n, self.m = Xtrain.shape
+
         betas = np.array([0] * self.m).reshape(self.m, 1)
         lrs = np.array([self.learning_rate] * self.m).reshape(self.m, 1)
         mse = self._func_loss(betas=betas)

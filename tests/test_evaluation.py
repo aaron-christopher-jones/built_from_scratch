@@ -8,6 +8,7 @@ from scratch.utils import evaluation as eval
 
 class TestEvaluation(unittest.TestCase):
     """
+    Evaluation metrics functions in test_evaluation.py.
     """
     
     def test_metric_rmse(self):
