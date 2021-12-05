@@ -5,32 +5,14 @@ import pandas as pd
 
 
 def metric_maep(y, yhat):
-    """
-    The mean absolute error as percentage evaluation metric.
-
-    Parameters
-    ----------
-    y : array
-    yhat : array
-    """
     return np.round(np.mean(np.abs(y - yhat)) / np.mean(y), 4)
 
 
 def metric_rmse(y, yhat):
-    """
-    The root mean squared error evaluation metric.
-
-    Parameters
-    ----------
-    y : array
-    yhat : array
-    """
     return np.round(np.sqrt(np.mean(np.power(y - yhat, 2))), 4)
 
 
 def build_confusion_matrix(y, yhat, as_percentage=False):
-    """
-    """
     assert len(y) == len(yhat), "Different lengths."
     output = pd.DataFrame({"Y": y, "YHAT": yhat})
     confusion = pd.crosstab(output.Y, output.YHAT)

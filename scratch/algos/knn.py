@@ -38,28 +38,16 @@ class KNearestNeighbors:
     Below is the coded from scratch version of the k-nearest neighbors algorithm and 
     the results of running the algorithm on the breast cancer dataset.
     """
-
-    def __init__(self, num_neighbors):
-        """
-        """
-        self.num_neighbors = num_neighbors
+    def __init__(self, n_neighbors):
+        self.n_neighbors = n_neighbors
 
     def fit(self, Xtrain, ytrain):
-        """
-        """
         self.Xtrain = Xtrain
         self.ytrain = ytrain
         
     def predict(self, Xvalid):
-        """
-        """
+        n = Xvalid.shape[0]
         dists = sp_dist.cdist(Xvalid, self.Xtrain, "minkowski", p=2)
-        min_indices = [
-            dists[i, :].argsort()[:self.num_neighbors] 
-            for i in range(Xvalid.shape[0])
-        ]
-        yhat = [
-            np.argmax(np.bincount(self.ytrain[i])) 
-            for i in min_indices
-        ]
-        return np.array(yhat)
+        min_idx = [dists[i, :].argsort()[:self.n_neighbors] for i in range(n)]
+        yhat = np.array([np.argmax(np.bincount(self.ytrain[i])) for i in min_idx])
+        return yhat
