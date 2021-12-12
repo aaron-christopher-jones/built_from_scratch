@@ -6,8 +6,8 @@ class KMeans:
     def __init__(self, n_clusts):
         self.n_clusts = n_clusts
 
-    def fit(self, Xtrain):
-        n = Xtrain.shape[0]
+    def fit(self, X):
+        n = X.shape[0]
 
         # initialize model convergence lists
         # these lists capture the labels and centers for each iteration of the model training
@@ -26,11 +26,11 @@ class KMeans:
                 plabels = trajectory_labels[it]
             
             # calculate mean values within column and grouped by labels
-            centers = np.array([Xtrain[plabels == i].mean(axis=0) for i in range(self.n_clusts)])
+            centers = np.array([X[plabels == i].mean(axis=0) for i in range(self.n_clusts)])
             trajectory_centers.append(centers)
 
             # calculate difference between data points and centroids
-            dists = sp_dist.cdist(Xtrain, centers)
+            dists = sp_dist.cdist(X, centers)
 
             # calculate minimum distance within row
             labels = np.argmin(dists, axis=1)
@@ -48,9 +48,9 @@ class KMeans:
         self.trajectory_centers = trajectory_centers
         self.trajectory_labels = trajectory_labels
 
-    def predict(self, Xvalid):
+    def predict(self, X):
         # calculate difference between new dataset and centroids
-        dists = sp_dist.cdist(Xvalid, self.centers)
+        dists = sp_dist.cdist(X, self.centers)
 
         # calculate labels as centroids with minimum distance
         labels = np.argmin(dists, axis=1)

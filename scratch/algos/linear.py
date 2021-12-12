@@ -14,10 +14,10 @@ class LinearRegression:
         Z = self.ytrain - np.dot(self.Xtrain, betas)
         return -(2 / self.n) * np.dot(self.Xtrain.T, Z)
 
-    def fit(self, Xtrain, ytrain):
-        self.Xtrain = Xtrain
-        self.ytrain = ytrain.reshape(len(ytrain), 1)
-        self.n, self.m = Xtrain.shape
+    def fit(self, X, y):
+        self.Xtrain = X
+        self.ytrain = y.reshape(len(y), 1)
+        self.n, self.m = X.shape
 
         betas = np.array([0] * self.m).reshape(self.m, 1)
         lrs = np.array([self.learning_rate] * self.m).reshape(self.m, 1)
@@ -35,6 +35,6 @@ class LinearRegression:
         
         self.coefs = betas
         
-    def predict(self, Xvalid):
-        self.yhat = np.dot(Xvalid, self.coefs)
+    def predict(self, X):
+        self.yhat = np.dot(X, self.coefs)
         return self.yhat

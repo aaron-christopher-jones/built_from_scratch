@@ -41,13 +41,13 @@ class KNearestNeighbors:
     def __init__(self, n_neighbors):
         self.n_neighbors = n_neighbors
 
-    def fit(self, Xtrain, ytrain):
-        self.Xtrain = Xtrain
-        self.ytrain = ytrain
+    def fit(self, X, y):
+        self.Xtrain = X
+        self.ytrain = y
         
-    def predict(self, Xvalid):
-        n = Xvalid.shape[0]
-        dists = sp_dist.cdist(Xvalid, self.Xtrain, "minkowski", p=2)
+    def predict(self, X):
+        n = X.shape[0]
+        dists = sp_dist.cdist(X, self.Xtrain, "minkowski", p=2)
         min_idx = [dists[i, :].argsort()[:self.n_neighbors] for i in range(n)]
         yhat = np.array([np.argmax(np.bincount(self.ytrain[i])) for i in min_idx])
         return yhat
