@@ -1,8 +1,10 @@
 import numpy as np
 import scipy.spatial.distance as sp_dist
 
+from scratch.abstract import AbstractModel
 
-class KNearestNeighbors:
+
+class KNearestNeighbors(AbstractModel):
     """
     Despite virtually all statistical / machine learning algorithms being 
     available as easily callable functions from open source libraries, I 

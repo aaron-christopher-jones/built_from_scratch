@@ -1,7 +1,9 @@
 import numpy as np
 
+from scratch.abstract import AbstractModel
 
-class PCA:
+
+class PCA(AbstractModel):
     def __init__(self):
         pass
 
@@ -26,5 +28,5 @@ class PCA:
         self.eigenvalues = eigenvalues[idx]
         self.eigenvectors = eigenvectors[idx]
 
-    def transform(self):
+    def predict(self):
         return np.dot(self.Xscale, self.eigenvectors.T)

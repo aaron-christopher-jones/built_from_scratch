@@ -1,8 +1,10 @@
 import numpy as np
 import scipy.spatial.distance as sp_dist
 
+from scratch.abstract import AbstractModel
 
-class KMeans:
+
+class KMeans(AbstractModel):
     def __init__(self, n_clusts):
         self.n_clusts = n_clusts
 
